@@ -42,7 +42,7 @@
             <h1>Add a Book</h1>
             <div class="container">
                 <form method="POST"
-                      action="https://guarded-scrubland-77051.herokuapp.com/api/books/">
+                      action="https://glacial-sierra-09997.herokuapp.com/api/books/">
                     <h2>Please provide book information</h2>
                     <div class="mb-3 form-group">
                         <label for="title">Title:</label>
@@ -87,7 +87,7 @@
         </div>
         <script>
             document.getElementById("btnAddBook").addEventListener("click", (event) =>{
-                let url = "https://guarded-scrubland-77051.herokuapp.com/api/books/"
+                let url = "https://glacial-sierra-09997.herokuapp.com/api/books/"
                 let xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function (){
                     if (this.readyState == 4 && this.status == 200){
@@ -96,7 +96,7 @@
                     }
                     else if (this.readyState == 4 && this.status == 404) {
                         // if doesn't exist
-                        let url2 = "https://guarded-scrubland-77051.herokuapp.com/api/books/"
+                        let url2 = "https://glacial-sierra-09997.herokuapp.com/api/books/"
                         let xhttp2 = new XMLHttpRequest();
                         xhttp2.onreadystatechange = function () {
                             document.getElementById("output").innerHTML =

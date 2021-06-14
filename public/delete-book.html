@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,12 +36,89 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Cover your page.</h1>
+        <h1 class="cover-heading">Remove Book From List</h1>
+
+        <div class="container">
+            <form method="POST"
+                  action="https://glacial-sierra-09997.herokuapp.com/api/books/">
+                <h2>Please provide book information</h2>
+                <div class="mb-3 form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" class="form-control"
+                           placeholder="Title of Book">
+                </div>
+                <div class="mb-3 form-group">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <button class="btn btn-lg btn-outline-primary" id="deleteBook">Delete Book</button>
+        </div>
 
 
 
+<script>
+    function CreateTable(data){
+        let table = "";
+        table =
+            '<table class="table table-bordered table-hover"> \n' +
+            '   <thead>\n' +
+            '       <tr>\n' +
+            '           <th scope="col">Title</th> \n'+
+            '           <th scope="col">Description</th> \n'+
+            '           <th scope="col">Year</th> \n'+
+            '           <th scope="col">Cost</th> \n'+
+            '           <th scope="col">Author</th> \n'+
+            '           <th scope="col">Cover Type</th> \n'+
+            '       </tr>\n' +
+            '   </thead>\n' +
+            '   <tbody>\n';
+
+        for (let book in data){
+            table +=
+                '       <tr>\n' +
+                '           <td>' + data[book]["title"]+  '</td>\n' +
+                '           <td>' + data[book]["description"]+  '</td>\n' +
+                '           <td>' + data[book]["year"]+  '</td>\n' +
+                '           <td>' + data[book]["cost"]+  '</td>\n' +
+                '           <td>' + data[book]["author"]+  '</td>\n' +
+                '           <td>' + data[book]["covertype"]+  '</td>\n' +
+                '       </tr>\n';
+        }
+
+        table +=
+            '   </tbody>\n' +
+            '</table>\n'
+        return table;
+    }
+    document.getElementById("btnDeleteBookBook").addEventListener("click", (event) =>{
+        let url = "https://glacial-sierra-09997.herokuapp.com/api/books/" + document.getElementById("title").value
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+                document.getElementById("output").innerHTML =
+                    CreateTable(JSON.parse(this.responseText));
 
 
+            }
+
+        };
+        xhttp.open('GET', url, true);
+        xhttp.send();
+    });
+    document.getElementById("deleteTitle").addEventListener("click", (event) =>{
+        let url ="https://glacial-sierra-09997.herokuapp.com/api/books/" + document.getElementById("title").value
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("deleteBook").innerHTML = "The book has been deleted"
+            }
+        }
+        xhttp.open('DELETE', url, true);
+        xhttp.send();
+    })
+</script>
     </main>
 
     <footer class="mastfoot mt-auto">
