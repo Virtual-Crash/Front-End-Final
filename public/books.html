@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Kayla">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>The Library List</title>
 
@@ -36,8 +37,60 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Cover your page.</h1>
 
+        <div class="container">
+            <h1>Library List</h1>
+            <button class="btn-primary btn-lg" id="btnLoadBooks">Load Books</button>
+            <a href="https://guarded-scrubland-77051.herokuapp.com/insert-book.html" class="btn-lg">Add a Book</a>
+
+        </div>
+        <script>
+            function CreateTable(data){
+                let table = "";
+                table =
+                    '<table class="table table-bordered table-hover"> \n' +
+                    '   <thead>\n' +
+                    '       <tr>\n' +
+                    '           <th scope="col">Title</th> \n'+
+                    '           <th scope="col">Description</th> \n'+
+                    '           <th scope="col">Year</th> \n'+
+                    '           <th scope="col">Cost</th> \n'+
+                    '           <th scope="col">Author</th> \n'+
+                    '           <th scope="col">Cover Type</th> \n'+
+                    '       </tr>\n' +
+                    '   </thead>\n' +
+                    '   <tbody>\n';
+
+                for (let book in data){
+                    table +=
+                        '       <tr>\n' +
+                        '           <td>' + data[book]["title"]+  '</td>\n' +
+                        '           <td>' + data[book]["description"]+  '</td>\n' +
+                        '           <td>' + data[book]["year"]+  '</td>\n' +
+                        '           <td>' + data[book]["cost"]+  '</td>\n' +
+                        '           <td>' + data[book]["author"]+  '</td>\n' +
+                        '           <td>' + data[book]["covertype"]+  '</td>\n' +
+                        '       </tr>\n';
+                }
+
+                table +=
+                    '   </tbody>\n' +
+                    '</table>\n'
+                return table;
+            }
+            document.getElementById("btnLoadBooks").addEventListener("click", (event) =>{
+                let url = "https://guarded-scrubland-77051.herokuapp.com/api/books/"
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function (){
+                    if (this.readyState == 4 && this.status == 200){
+                        document.getElementById("output").innerHTML =
+                            CreateTable(JSON.parse(this.responseText));
+                    }
+                };
+                xhttp.open('GET', url, true);
+                xhttp.send();
+            });
+        </script>
 
 
 

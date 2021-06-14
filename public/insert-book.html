@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Kayla">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>The Library Add a Book</title>
 
@@ -41,7 +42,7 @@
             <h1>Add a Book</h1>
             <div class="container">
                 <form method="POST"
-                      action="https://arias-spu-students.herokuapp.com/api/students/">
+                      action="https://guarded-scrubland-77051.herokuapp.com/api/books/">
                     <h2>Please provide book information</h2>
                     <div class="mb-3 form-group">
                         <label for="title">Title:</label>
@@ -80,28 +81,40 @@
                     </div>
                 </form>
             </div>
-
+            <div class="container">
+                <button class="btn btn-lg btn-outline-primary" id="btnAddBook">Add Book</button>
+            </div>
         </div>
         <script>
-            document.getElementById("btnAddFriend").addEventListener("click", (event) =>{
-                let url = "https://arias-spu-students.herokuapp.com/api/students/"
+            document.getElementById("btnAddBook").addEventListener("click", (event) =>{
+                let url = "https://guarded-scrubland-77051.herokuapp.com/api/books/"
                 let xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function (){
                     if (this.readyState == 4 && this.status == 200){
                         document.getElementById("output").innerHTML =
                             "<pre>" + this.responseText + "</pre>";
                     }
+                    else if (this.readyState == 4 && this.status == 404) {
+                        // if doesn't exist
+                        let url2 = "https://guarded-scrubland-77051.herokuapp.com/api/books/"
+                        let xhttp2 = new XMLHttpRequest();
+                        xhttp2.onreadystatechange = function () {
+                            document.getElementById("output").innerHTML =
+                                "<p>" + this.responseText + "</p>";
+                        }
+                    }
                 };
-                // foo=bar&lorem=ipsum
-                let studentData = "firstName=" + document.getElementById("firstName").value + "&" +
-                    "lastName=" + document.getElementById("lastName").value  + "&" +
-                    "gpa="  + document.getElementById("gpa").value  + "&" +
-                    "credits="  + document.getElementById("credits").value  + "&" +
-                    "major="  + document.getElementById("major").value  + "&";
+
+                let bookData = "title=" + document.getElementById("title").value + "&" +
+                    "description=" + document.getElementById("shortDescription").value  + "&" +
+                    "year="  + document.getElementById("year").value  + "&" +
+                    "cost="  + document.getElementById("cost").value  + "&" +
+                    "author=" + document.getElementById("author").value  + "&" +
+                    "coverType="  + document.getElementById("covertype").value  + "&";
                 xhttp.open('POST', url, true);
                 // Just needed to place this line AFTER opening the object
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send(studentData);
+                xhttp.send(bookData);
             });
         </script>
 
