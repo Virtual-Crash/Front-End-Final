@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Kayla">
 
-    <title>Cover Template for Bootstrap</title>
+    <title>The Library Add a Book</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/cover/">
 
@@ -23,7 +23,7 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
         <div class="inner">
-            <h3 class="masthead-brand">Cover</h3>
+            <h3 class="masthead-brand">The Library</h3>
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link" href="https://guarded-scrubland-77051.herokuapp.com/index.html">Home</a>
                 <a class="nav-link" href="https://guarded-scrubland-77051.herokuapp.com/books.html">List of Books</a>
@@ -36,9 +36,74 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Cover your page.</h1>
 
+        <div class="container">
+            <h1>Add a Book</h1>
+            <div class="container">
+                <form method="POST"
+                      action="https://arias-spu-students.herokuapp.com/api/students/">
+                    <h2>Please provide book information</h2>
+                    <div class="mb-3 form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" class="form-control"
+                               placeholder="Title of Book">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="shortDescription">A Short Description:</label>
+                        <input type="text" name="shortDescription" id="shortDescription" class="form-control"
+                               placeholder="This book is about...">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="year">Year:</label>
+                        <input type="number" step="1" name="year" id="year" class="form-control"
+                               placeholder="Year">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="cost">Cost:</label>
+                        <input type="number" name="cost" id="cost" class="form-control"
+                               placeholder="Book Cost">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author" class="form-control"
+                               placeholder="Author">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="covertype">Book Type:</label>
+                        <select class="form-select" id="covertype" name="covertype">
+                            <option value="hardcover" id="true">Hard Cover</option>
+                            <option value="Paperback" id="false">Paperback</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
 
+        </div>
+        <script>
+            document.getElementById("btnAddFriend").addEventListener("click", (event) =>{
+                let url = "https://arias-spu-students.herokuapp.com/api/students/"
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function (){
+                    if (this.readyState == 4 && this.status == 200){
+                        document.getElementById("output").innerHTML =
+                            "<pre>" + this.responseText + "</pre>";
+                    }
+                };
+                // foo=bar&lorem=ipsum
+                let studentData = "firstName=" + document.getElementById("firstName").value + "&" +
+                    "lastName=" + document.getElementById("lastName").value  + "&" +
+                    "gpa="  + document.getElementById("gpa").value  + "&" +
+                    "credits="  + document.getElementById("credits").value  + "&" +
+                    "major="  + document.getElementById("major").value  + "&";
+                xhttp.open('POST', url, true);
+                // Just needed to place this line AFTER opening the object
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send(studentData);
+            });
+        </script>
 
 
 
